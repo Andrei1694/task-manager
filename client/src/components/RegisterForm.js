@@ -2,8 +2,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useFormik } from 'formik'
 import axios from 'axios';
-
+import { useCookies } from 'react-cookie';
 export default function RegisterForm() {
+    const [cookies, setCookie, removeCookie] = useCookies(['token']);
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -17,11 +18,15 @@ export default function RegisterForm() {
         },
     });
     const register = async (email, password, name) => {
-        await axios.post('http://localhost:3000/v1/user', {
+        const response = await axios.post('http://localhost:3000/v1/user', {
             email,
             password,
             name
         })
+        const token = response.data.token
+        setCookie('token', token)
+        console.log(cookies)
+        axios.defaults.headers.common['Authorization'] = `Bearer ${cookies.token}`;
     }
     return (
         <Form onSubmit={formik.handleSubmit}>

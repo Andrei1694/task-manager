@@ -9,6 +9,7 @@ import {
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import TaskPage from './pages/TaskContainer';
+import MyProfile from './pages/MyProfile';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/tasks",
     element: <TaskPage />,
+  },
+  {
+    path: "/myprofile",
+    element: <MyProfile />,
   },
 ]);
 function App() {

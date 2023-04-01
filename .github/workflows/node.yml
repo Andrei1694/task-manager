@@ -1,4 +1,4 @@
-name: NASA Project CI
+name: Task Manager App
 on:
   push:
     branches: [master]

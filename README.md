@@ -14,6 +14,8 @@ On the other hand, Continuous Deployment (CD) is a practice where every code cha
 \*its not for every product
 In summary, Continuous Delivery automates the process of building, testing, and preparing code changes for deployment, while Continuous Deployment goes a step further by automating the actual deployment of the code changes to production.
 
+#### CI Pipeline
+
 A Continuous Integration (CI) pipeline is a series of automated tasks that are executed in a sequence to build, test, and deploy software changes in a consistent and repeatable manner. A CI pipeline typically consists of several stages, each of which performs a specific set of tasks.
 
 Here is an example of a basic CI pipeline:
@@ -34,6 +36,19 @@ CI pipelines are an essential component of a Continuous Integration and Continuo
 
 https://www.redhat.com/en/topics/devops/what-is-ci-cd
 
+#### Github Actions
+
+A workflow run is made up of one or more jobs, which run in parallel by default. To run jobs sequentially, you can define dependencies on other jobs using the jobs.<job_id>.needs keyword.
+
+```yml
+jobs:
+  job1:
+  job2:
+    needs: job1
+  job3:
+    needs: [job1, job2]
+```
+
 #### Tests
 
 Smoke testing is a type of software testing that aims to ensure that the most critical features of an application are working correctly after a new build or release. Smoke testing is typically performed early in the development cycle and is intended to catch major defects and issues before more extensive testing is done.
@@ -42,9 +57,10 @@ The term "smoke test" comes from the electronics industry, where a new electroni
 
 Smoke tests are usually performed manually, and they can include tasks such as:
 
-Verifying that the application can start up and run without errors
-Checking that the critical features of the application are functioning as expected
-Testing that data is being processed correctly
-Verifying that the user interface is functioning correctly
-Ensuring that the application can gracefully handle unexpected errors
+1. Verifying that the application can start up and run without errors
+2. Checking that the critical features of the application are functioning as expected
+3. Testing that data is being processed correctly
+4. Verifying that the user interface is functioning correctly
+5. Ensuring that the application can gracefully handle unexpected errors
+
 The primary goal of smoke testing is to identify major issues early in the development process so that they can be addressed before more extensive testing is performed. Smoke testing helps to reduce the cost of testing by catching critical defects early and preventing them from becoming more significant issues later in the development cycle.

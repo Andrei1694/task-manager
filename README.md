@@ -1,5 +1,7 @@
 # Task Manager
 
+#### CI/CD
+
 Continuous Integration is the practice of continuously merging code changes from multiple developers into a central repository, and then automatically building and testing the merged code to detect any integration issues early in the development cycle. The main goal of CI is to catch integration issues early and ensure that the codebase is always stable and ready for deployment.
 
 Continuous Delivery (CD) and Continuous Deployment (CD) are both practices that aim to streamline and accelerate the software development process, but they differ in their objectives and how they are implemented.
@@ -12,4 +14,37 @@ On the other hand, Continuous Deployment (CD) is a practice where every code cha
 \*its not for every product
 In summary, Continuous Delivery automates the process of building, testing, and preparing code changes for deployment, while Continuous Deployment goes a step further by automating the actual deployment of the code changes to production.
 
+A Continuous Integration (CI) pipeline is a series of automated tasks that are executed in a sequence to build, test, and deploy software changes in a consistent and repeatable manner. A CI pipeline typically consists of several stages, each of which performs a specific set of tasks.
+
+Here is an example of a basic CI pipeline:
+
+Code Checkout: The pipeline checks out the latest code changes from the source code repository.
+
+Build: The pipeline compiles the code and generates the application binaries.
+
+Test: The pipeline runs automated tests to ensure that the code changes are functional and do not break existing functionality.
+
+Deploy: The pipeline deploys the code changes to a staging environment for further testing.
+
+Release: If the tests in the staging environment pass, the pipeline deploys the code changes to the production environment.
+
+Each stage in the pipeline is automated, and the pipeline is triggered automatically when changes are committed to the source code repository. The pipeline provides developers with fast feedback on the quality of their code changes and ensures that changes are delivered to production in a consistent and reliable manner.
+
+CI pipelines are an essential component of a Continuous Integration and Continuous Delivery (CI/CD) workflow, as they enable developers to automate the software development process from code commit to release.
+
 https://www.redhat.com/en/topics/devops/what-is-ci-cd
+
+#### Tests
+
+Smoke testing is a type of software testing that aims to ensure that the most critical features of an application are working correctly after a new build or release. Smoke testing is typically performed early in the development cycle and is intended to catch major defects and issues before more extensive testing is done.
+
+The term "smoke test" comes from the electronics industry, where a new electronic device is first turned on to see if it starts smoking or not. In the context of software testing, smoke testing is a quick and basic test that checks whether the application is stable enough to proceed with more detailed testing.
+
+Smoke tests are usually performed manually, and they can include tasks such as:
+
+Verifying that the application can start up and run without errors
+Checking that the critical features of the application are functioning as expected
+Testing that data is being processed correctly
+Verifying that the user interface is functioning correctly
+Ensuring that the application can gracefully handle unexpected errors
+The primary goal of smoke testing is to identify major issues early in the development process so that they can be addressed before more extensive testing is performed. Smoke testing helps to reduce the cost of testing by catching critical defects early and preventing them from becoming more significant issues later in the development cycle.

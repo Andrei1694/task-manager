@@ -6,12 +6,21 @@ on:
     branches: [main]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    env:
+      CI: true
+      MONGO_URL: mongodb+srv://stan:root@cluster0.rzgkc.mongodb.net/?retryWrites=true&w=majority
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node-version: [16.x, 18.x]
+    runs-on: ${{matrix.os}}
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js version 18
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
-      - run: npm install
-      - run: npm run build
+          node-version: ${{matrix.node-version}}
+        - name: MongoDB in GitHub Actions
+          uses: supercharge/mongodb-github-action@1.9.0
+        - run: npm install
+        - run: npm run build

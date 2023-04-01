@@ -49,6 +49,34 @@ jobs:
     needs: [job1, job2]
 ```
 
+The strategy feature in GitHub Actions is used to define a matrix of values for one or more parameters, and then execute a set of steps for each combination of the parameter values.
+
+This feature is useful when you want to run a set of steps with different combinations of values, such as building and testing an application on different versions of a programming language, operating system, or other environment variables.
+
+Here's an example of using the strategy feature to build and test an application on different operating systems:
+
+```yml
+name: Build and Test on Multiple OS
+on: [push, pull_request]
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14.x"
+      - name: Install dependencies
+        run: npm install
+      - name: Build and Test
+        run: npm run build && npm run test
+```
+
 #### Tests
 
 Smoke testing is a type of software testing that aims to ensure that the most critical features of an application are working correctly after a new build or release. Smoke testing is typically performed early in the development cycle and is intended to catch major defects and issues before more extensive testing is done.

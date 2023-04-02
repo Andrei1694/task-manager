@@ -79,9 +79,8 @@ userRouter.delete('/users/me', auth, async (req, res) => {
         res.status(500).send()
     }
 })
-
+const storage = multer.memoryStorage()
 const upload = multer({
-    dest: 'avatars',
     limits: {
         fileSize: 1_000_000
     },
@@ -90,10 +89,14 @@ const upload = multer({
             return cb(new Error('Please upload an image'))
         }
         cb(undefined, true)
-    }
+    },
+    storage
 })
 
-userRouter.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
+userRouter.post('/users/me/avatar', auth, upload.single('avatar'), async (req, res) => {
+    console.log(req.user)
+    req.user.avatar = req.file.buffer
+    await req.user.save()
     res.send()
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })

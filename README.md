@@ -93,9 +93,26 @@ Smoke tests are usually performed manually, and they can include tasks such as:
 
 The primary goal of smoke testing is to identify major issues early in the development process so that they can be addressed before more extensive testing is performed. Smoke testing helps to reduce the cost of testing by catching critical defects early and preventing them from becoming more significant issues later in the development cycle.
 
-#### File Upload
+## File Upload
 
 Express by default dosent support file upload
-multer is mainted by the express
-multer - multi part(multipart /form-data)
-we need to use form data
+Sure, here's an example of how you could document the file upload mechanism using Multer in your API:
+To upload files, the API uses the Multer middleware for Express, which provides a flexible mechanism for handling multipart/form-data requests. Express does not provide built-in support for file uploads. You need to use a middleware package like Multer to handle file uploads in your Express app. Without a middleware like Multer, when you submit a form with a file input, the form data will be parsed by the built-in body-parser middleware, but the file data will not be available in the req.body object.
+Express is an open-source project that is maintained by a community of developers on GitHub. The original author of Express is TJ Holowaychuk, but he is no longer actively maintaining the project. Currently, the project is being maintained by a group of contributors who work together to review and merge pull requests, fix bugs, and add new features. Anyone can contribute to the project by submitting bug reports, feature requests, or code changes.
+Whether it is a good practice to store images on the filesystem or not depends on the specific requirements and constraints of your application.
+
+#### Storing images on the filesystem has some advantages such as:
+
+- It can be faster than storing them in a database, as the web server can directly serve the files to the client without having to retrieve them from a database first.
+- It can be more efficient in terms of storage space, as the files can be compressed and stored on disk in a way that saves space.
+- It can be easier to manage backups and disaster recovery of the files, as they can be backed up and restored using standard filesystem backup tools.
+
+##### However, storing images on the filesystem also has some drawbacks such as:
+
+- It can be harder to secure, as the files can be accessed directly by anyone with access to the server's filesystem.
+- It can be harder to scale, as the files may need to be replicated across multiple servers in order to handle high traffic.
+- It can be harder to manage if you have a large number of files, as the filesystem can become cluttered and hard to navigate.
+- If your application has high traffic or needs to store a large number of images, you may want to consider storing them in a cloud-based object storage service like Amazon S3, Google Cloud Storage, or Azure Blob Storage. These services provide scalable, secure, and cost-effective storage for large amounts of data, and can be integrated with your application using APIs or SDKs.
+  we are not going store the images on the filesystems, becouse on evrey deploy the filesystem gets wiped
+  To store images in MongoDB using Mongoose, we can add an avatar field of type Buffer to the user schema. This avatar field will allow us to store binary data for the user's profile picture or any other image associated with the user.
+  To access the binary data of the uploaded file using multer, we need to remove the dest option from the multer settings. This will prevent multer from saving the file to disk and allow us to access the file data directly in the req.file.buffer property.

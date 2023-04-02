@@ -84,7 +84,7 @@ const upload = multer({
     dest: 'images'
 })
 
-userRouter.post('/upload', upload.single('upload'), (req, res) => {
+userRouter.post('/users/me/avatar', upload.single('avatar'), (req, res) => {
     res.send()
 })
 

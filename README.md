@@ -92,3 +92,10 @@ Smoke tests are usually performed manually, and they can include tasks such as:
 5. Ensuring that the application can gracefully handle unexpected errors
 
 The primary goal of smoke testing is to identify major issues early in the development process so that they can be addressed before more extensive testing is performed. Smoke testing helps to reduce the cost of testing by catching critical defects early and preventing them from becoming more significant issues later in the development cycle.
+
+#### File Upload
+
+Express by default dosent support file upload
+multer is mainted by the express
+multer - multi part(multipart /form-data)
+we need to use form data

@@ -116,3 +116,7 @@ Whether it is a good practice to store images on the filesystem or not depends o
   we are not going store the images on the filesystems, becouse on evrey deploy the filesystem gets wiped
   To store images in MongoDB using Mongoose, we can add an avatar field of type Buffer to the user schema. This avatar field will allow us to store binary data for the user's profile picture or any other image associated with the user.
   To access the binary data of the uploaded file using multer, we need to remove the dest option from the multer settings. This will prevent multer from saving the file to disk and allow us to access the file data directly in the req.file.buffer property.
+
+  ### Auto Crop and resize images
+
+  we use sharp

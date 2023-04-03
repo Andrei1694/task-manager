@@ -170,6 +170,11 @@ userRouter.get("/users/:id/avatar", async (req, res) => {
 });
 ```
 
+### Tests
+
+jest, can add command for watching --watch
+expect toBe done
+
 ### Deploying Production
 
-PM2
+PM2, why it works with pm2 and not build

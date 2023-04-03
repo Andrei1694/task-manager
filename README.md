@@ -175,6 +175,12 @@ userRouter.get("/users/:id/avatar", async (req, res) => {
 jest, can add command for watching --watch
 expect toBe done
 
+```js
+  "jest": {
+    "testEnvironment": "node"
+  },
+```
+
 ### Deploying Production
 
 PM2, why it works with pm2 and not build

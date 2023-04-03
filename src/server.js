@@ -1,8 +1,10 @@
+const path = require('path')
+require("dotenv").config({ path: path.resolve(__dirname, './', '.env') });
 const express = require('express')
 require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
-require('dotenv').config()
+
 const app = express()
 const port = process.env.PORT || 3000
 

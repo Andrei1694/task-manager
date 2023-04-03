@@ -80,7 +80,9 @@ userRouter.delete('/users/me', auth, async (req, res) => {
         res.status(500).send()
     }
 })
+
 const storage = multer.memoryStorage()
+
 const upload = multer({
     limits: {
         fileSize: 1_000_000

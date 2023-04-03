@@ -117,6 +117,59 @@ Whether it is a good practice to store images on the filesystem or not depends o
   To store images in MongoDB using Mongoose, we can add an avatar field of type Buffer to the user schema. This avatar field will allow us to store binary data for the user's profile picture or any other image associated with the user.
   To access the binary data of the uploaded file using multer, we need to remove the dest option from the multer settings. This will prevent multer from saving the file to disk and allow us to access the file data directly in the req.file.buffer property.
 
-  ### Auto Crop and resize images
+```js
+const storage = multer.memoryStorage();
+const upload = multer({
+  limits: {
+    fileSize: 1_000_000,
+  },
+  fileFilter(req, file, cb) {
+    if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+      return cb(new Error("Please upload an image"));
+    }
+    cb(undefined, true);
+  },
+  storage,
+});
 
-  we use sharp
+userRouter.post(
+  "/users/me/avatar",
+  auth,
+  upload.single("avatar"),
+  async (req, res) => {
+    const buffer = await sharp(req.file.buffer)
+      .resize({ width: 250, height: 250 })
+      .png()
+      .toBuffer();
+    req.user.avatar = buffer;
+    await req.user.save();
+    res.send();
+  },
+  (error, req, res, next) => {
+    res.status(400).send({ error: error.message });
+  }
+);
+
+userRouter.delete("/users/me/avatar", auth, async (req, res) => {
+  req.user.avatar = undefined;
+  await req.user.save();
+  res.send();
+});
+
+userRouter.get("/users/:id/avatar", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user || !user.avatar) {
+      throw new Error();
+    }
+    res.set("Content-Type", "image/png");
+    res.send(user.avatar);
+  } catch (error) {
+    res.status(404).send();
+  }
+});
+```
+
+### Deploying Production
+
+PM2

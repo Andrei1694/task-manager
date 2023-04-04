@@ -3,6 +3,7 @@ const User = require('../models/user')
 const auth = require('../middleware/auth')
 const multer = require('multer')
 const sharp = require('sharp')
+const { sendMail } = require('../utils/mail')
 const userRouter = express.Router()
 
 userRouter.post('/users', async (req, res) => {
@@ -11,6 +12,7 @@ userRouter.post('/users', async (req, res) => {
     try {
         await user.save()
         const token = await user.generateAuthToken()
+        await sendMail()
         res.status(201).send({ user, token })
     } catch (e) {
         res.status(400).send(e)

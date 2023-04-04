@@ -25,10 +25,13 @@ describe('Launches API', () => {
                 .post('/users')
                 .send(newUser)
                 .expect(201);
-
-            console.log(response.body)
             expect(response.body).toHaveProperty('user.email', email)
-
+        });
+        test('It should login user', async () => {
+            const response = await request(app)
+                .post('/users/login')
+                .send(newUser)
+                .expect(200);
         });
 
 

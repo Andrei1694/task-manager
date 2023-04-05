@@ -25,5 +25,5 @@ jobs:
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: npm install
-      - run: npm run cluster --if-present
+      - run: npm run deploy-cluster --if-present
       - run: npm test

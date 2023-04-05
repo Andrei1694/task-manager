@@ -184,3 +184,12 @@ expect toBe done
 ### Deploying Production
 
 PM2, why it works with pm2 and not build
+
+### NPM Build Tool
+
+Caret "^" sign makes npm able to update minor version updates (for above example 56 to 57 or higher) and
+Tilde "~" sign makes npm able to update patch version updates (right-most element in [major, minor, path] tuple)
+
+#### Links
+
+https://blog.heroku.com/best-practices-nodejs-errors

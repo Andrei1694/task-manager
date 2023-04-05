@@ -1,5 +1,5 @@
 const express = require('express')
-const path = require('parse-json')
+const path = require('path')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 

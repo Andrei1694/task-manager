@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build --outDir ../server/public",
     "preview": "vite preview",
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --passWithNoTests",
     "test-watch": "jest --watch"
   },
   "jest": {

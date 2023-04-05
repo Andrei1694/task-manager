@@ -37,3 +37,9 @@
 
 //     });
 // });
+
+describe('Hello World', () => {
+    test('It should say hello world', async () => {
+        console.log("Hello World")
+    })
+})

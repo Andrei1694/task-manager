@@ -4,12 +4,11 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js",
-    "build": "node src/server.js",
-    "cluster": "pm2 start src/server.js -i max",
     "test": "jest --detectOpenHandles",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "watch": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "cluster": "pm2 start src/server.js -i max"
   },
   "jest": {
     "testEnvironment": "node"

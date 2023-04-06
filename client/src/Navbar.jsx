@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { useQuery, useQueryClient } from "react-query";
+import { UserContext } from "./context/UserContext";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData("login");
+  const { user } = useContext(UserContext);
+
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-  console.log(data);
+
   return (
     <nav className="bg-gray-800">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,10 +24,10 @@ function Navbar() {
           <div className="hidden md:block">
             <div className="ml-10 flex items-baseline space-x-4">
               <Link
-                to="/"
+                to="/tasks"
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Home
+                Tasks
               </Link>
               <Link
                 to="/profile"
@@ -36,10 +36,10 @@ function Navbar() {
                 Profile
               </Link>
               <Link
-                to="/logout"
+                to={user ? "/logout" : "/login"}
                 className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
               >
-                Logout
+                {user ? "Logout" : "Login"}
               </Link>
             </div>
           </div>
@@ -105,10 +105,10 @@ function Navbar() {
           </Link>
 
           <Link
-            to={"/login"}
+            to={user ? "/logout" : "/login"}
             className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
           >
-            {data?.isAuth ? "Logout" : "Login"}
+            {user ? "Logout" : "Login"}
           </Link>
         </div>
       </div>

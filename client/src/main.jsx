@@ -4,9 +4,11 @@ import App from "./App";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthPage from "./pages/Authentification/authentification.page";
-import Home from "./pages/Home/home.page";
+import Tasks from "./pages/Tasks/tasks.page";
 import ProfilePage from "./pages/Profile/profile.page.jsx";
 import { QueryClient, QueryClientProvider } from "react-query";
+import LogoutModal from "./components/LogoutModal";
+import Home from "./pages/Home";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -17,12 +19,21 @@ const router = createBrowserRouter([
         element: <AuthPage />,
       },
       {
-        path: "home",
+        path: "/",
         element: <Home />,
+        index: true,
+      },
+      {
+        path: "tasks",
+        element: <Tasks />,
       },
       {
         path: "profile",
         element: <ProfilePage />,
+      },
+      {
+        path: "logout",
+        element: <LogoutModal />,
       },
     ],
   },

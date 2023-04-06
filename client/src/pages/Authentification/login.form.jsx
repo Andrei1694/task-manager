@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-function LoginForm({ toggleForm }) {
+function LoginForm({ toggleForm, mutation }) {
   return (
     <div className="w-full max-w-xs">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
@@ -17,10 +17,7 @@ function LoginForm({ toggleForm }) {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          mutation(values);
         }}
       >
         {({ isSubmitting }) => (

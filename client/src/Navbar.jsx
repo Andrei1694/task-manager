@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
+import { useQuery, useQueryClient } from "react-query";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData("login");
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  console.log(data);
   return (
     <nav className="bg-gray-800">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -107,7 +108,7 @@ function Navbar() {
             to={"/login"}
             className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
           >
-            Login
+            {data?.isAuth ? "Logout" : "Login"}
           </Link>
         </div>
       </div>

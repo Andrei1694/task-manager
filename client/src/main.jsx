@@ -6,6 +6,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import AuthPage from "./pages/Authentification/authentification.page";
 import Home from "./pages/Home/home.page";
 import ProfilePage from "./pages/Profile/profile.page.jsx";
+import { QueryClient, QueryClientProvider } from "react-query";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,8 +27,11 @@ const router = createBrowserRouter([
     ],
   },
 ]);
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   </React.StrictMode>
 );

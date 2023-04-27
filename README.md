@@ -93,7 +93,7 @@ Smoke tests are usually performed manually, and they can include tasks such as:
 
 The primary goal of smoke testing is to identify major issues early in the development process so that they can be addressed before more extensive testing is performed. Smoke testing helps to reduce the cost of testing by catching critical defects early and preventing them from becoming more significant issues later in the development cycle.
 
-## Mocking Libraries
+### Mocking Libraries
 
 In Jest, we use mocking to simulate the behavior of dependencies or external resources that our code relies on. There are several reasons why we might want to use mocking in Jest:
 
@@ -106,6 +106,10 @@ To test error cases: Some external resources or dependencies may return error co
 To test edge cases: Mocking can also be used to test edge cases that are difficult to trigger in a real environment. For example, we can simulate network timeouts or data corruption to ensure that our code handles these scenarios correctly.
 
 Overall, mocking in Jest allows us to write more effective and efficient tests, by isolating the code being tested and simulating the behavior of external resources and dependencies.
+
+### Jest
+
+--runInBand
 
 ## File Upload
 

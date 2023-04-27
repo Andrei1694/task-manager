@@ -4,9 +4,14 @@ require("dotenv").config({ path: path.resolve(__dirname, './', '.env') });
 const app = require('../src/app');
 const { mongoDisconnect, mongoConnect } = require('../src/utils/mongoose');
 const { faker } = require('@faker-js/faker');
+const User = require('../src/models/user');
+const Task = require('../src/models/task');
+
 describe('Launches API', () => {
     beforeAll(async () => {
         await mongoConnect();
+        await User.deleteMany({})
+        await Task.deleteMany({})
     });
 
     afterAll(async () => {

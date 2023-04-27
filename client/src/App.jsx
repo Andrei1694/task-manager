@@ -8,35 +8,7 @@ import Tasks from "../src/pages/Tasks/tasks.page";
 import UserProvider from "./context/UserContext";
 export default function App() {
   const [cookies] = useCookies(["loginToken"]);
-  const router = [
-    {
-      path: "/",
-      element: <App />,
-      children: [
-        {
-          path: "login",
-          element: <AuthPage />,
-        },
-        {
-          path: "/",
-          element: <Home />,
-          index: true,
-        },
-        {
-          path: "tasks",
-          element: <Tasks />,
-        },
-        {
-          path: "profile",
-          element: <ProfilePage />,
-        },
-        {
-          path: "logout",
-          element: <LogoutModal />,
-        },
-      ],
-    },
-  ];
+
   return (
     <CookiesProvider>
       <UserProvider>

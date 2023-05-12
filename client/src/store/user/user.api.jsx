@@ -41,6 +41,19 @@ export const userApi = createApi({
         body: user,
       }),
     }),
+    uploadAvatar: builder.mutation({
+      query: (formData) => ({
+        url: "/users/me/avatar",
+        method: "POST",
+        body: formData,
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // },
+      }),
+    }),
+    getMyProfile: builder.query({
+      query: () => "/users/me",
+    }),
   }),
 });
 
@@ -49,4 +62,6 @@ export const {
   useRegisterUserMutation,
   useLogoutMutation,
   useUpdateUserMutation,
+  useUploadAvatarMutation,
+  useLazyGetMyProfileQuery,
 } = userApi;

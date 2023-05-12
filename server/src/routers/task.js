@@ -23,7 +23,6 @@ router.post('/tasks', auth, async (req, res) => {
 router.get('/tasks', auth, async (req, res) => {
     const match = {}
     const sort = {}
-
     if (req.query.completed) {
         match.completed = req.query.completed === 'true'
     }
@@ -41,10 +40,12 @@ router.get('/tasks', auth, async (req, res) => {
                 limit: parseInt(req.query.limit),
                 skip: parseInt(req.query.skip),
                 sort
-            }
+            },
+            select: '-__v'
         }).execPopulate()
         res.send(req.user.tasks)
     } catch (e) {
+        console.log(e)
         res.status(500).send()
     }
 })
@@ -75,7 +76,7 @@ router.patch('/tasks/:id', auth, async (req, res) => {
     }
 
     try {
-        const task = await Task.findOne({ _id: req.params.id, owner: req.user._id})
+        const task = await Task.findOne({ _id: req.params.id, owner: req.user._id })
 
         if (!task) {
             return res.status(404).send()

@@ -6,14 +6,17 @@
   "scripts": {
     "install-server": "npm install --prefix server --omit=dev",
     "install-client": "npm install --prefix client --omit=dev",
-    "install": "npm run install-server && npm run install-client",
+    "install": "concurrently \"npm run install-server\" \"npm run install-client\"",
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
-    "watch": "npm run server & npm run client",
-    "deploy": "npm run build --prefix client && npm start --prefix server",
-    "deploy-cluster": "npm run build --prefix client && npm run cluster --prefix server",
+    "watch": "concurrently \"npm run server\" \"npm run client\"",
+    "deploy": "concurrently \"npm run build --prefix client\" \"npm start --prefix server\"",
+    "deploy-cluster": "concurrently \"npm run build --prefix client\" \"npm run cluster --prefix server\"",
     "test": "npm test --prefix server && npm test --prefix client"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^8.0.1"
+  }
 }

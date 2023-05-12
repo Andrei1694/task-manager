@@ -1,12 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import UserDetailsForm from "./user-details.form.jsx";
-import { UserContext } from "../../context/UserContext.jsx";
+import { useSelector } from "react-redux";
+import { selectUserFromState } from "../../store/user/user.slice.jsx";
+import { useUpdateUserMutation } from "../../store/user/user.api.jsx";
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
-
-  const { user, setUser } = useContext(UserContext);
-  const { name, email, age } = user;
+  const { user } = useSelector(selectUserFromState);
+  const { name, email, age } = user ?? {};
+  const [updateUser] = useUpdateUserMutation();
   const handleEditClick = () => {
     setEditing(true);
   };
@@ -25,7 +27,7 @@ const Profile = () => {
       {editing ? (
         <UserDetailsForm
           onCancelClick={handleCancelClick}
-          onSaveClick={handleSaveClick}
+          handleRequest={updateUser}
           user={user}
         />
       ) : (

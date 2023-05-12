@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
+import { useRegisterUserMutation } from "../../store/user/user.api";
+// import { useRegisterUserMutation } from "../../store/user/user.slice";
 
 const RegisterForm = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [registerUser] = useRegisterUserMutation();
 
   const initialValues = {
     name: "",
@@ -30,6 +33,7 @@ const RegisterForm = () => {
 
   const onSubmit = (values) => {
     console.log(values);
+    registerUser(values);
   };
 
   return (

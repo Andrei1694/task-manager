@@ -1,9 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-import { UserContext } from "./context/UserContext";
+import { selectUserFromState } from "./store/user/user.slice";
+import { useSelector } from "react-redux";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useContext(UserContext);
+  const userSelector = useSelector(selectUserFromState);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -37,10 +38,10 @@ function Navbar() {
                   Profile
                 </Link>
                 <Link
-                  to={user ? "/logout" : "/login"}
+                  to={userSelector.token ? "/logout" : "/login"}
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  {user ? "Logout" : "Login"}
+                  {userSelector.token ? "Logout" : "Login"}
                 </Link>
               </div>
             </div>
@@ -106,10 +107,10 @@ function Navbar() {
             </Link>
 
             <Link
-              to={user ? "/logout" : "/login"}
+              to={userSelector.token ? "/logout" : "/login"}
               className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
             >
-              {user ? "Logout" : "Login"}
+              {userSelector.token ? "Logout" : "Login"}
             </Link>
           </div>
         </div>

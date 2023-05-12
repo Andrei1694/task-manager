@@ -4,6 +4,7 @@ import AuthPage from "../pages/Authentification/authentification.page";
 import Profile from "../pages/Profile/profile.page"
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../pages/Error";
+import LogoutModal from '../components/LogoutModal'
 
 const router = createBrowserRouter([
     {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
                 path: "profile",
                 element: <Profile />,
             },
+
         ],
     },
 ]);

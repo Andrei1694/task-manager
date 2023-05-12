@@ -39,6 +39,13 @@ const userSlice = createSlice({
         state.user = payload;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.getMyProfile.matchFulfilled,
+      (state, { payload }) => {
+        console.log(payload);
+        state.user = payload;
+      }
+    );
   },
 });
 

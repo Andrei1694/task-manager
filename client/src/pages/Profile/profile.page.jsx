@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserDetailsForm from "./user-details.form.jsx";
 import { useSelector } from "react-redux";
 import { selectUserFromState } from "../../store/user/user.slice.jsx";
-import { useUpdateUserMutation } from "../../store/user/user.api.jsx";
+import {
+  useLazyGetMyProfileQuery,
+  useUpdateUserMutation,
+} from "../../store/user/user.api.jsx";
+import ProfileImage from "./ProfileImage.jsx";
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
   const { user } = useSelector(selectUserFromState);
   const { name, email, age } = user ?? {};
   const [updateUser] = useUpdateUserMutation();
+
+  const [getUserQuery, { data }] = useLazyGetMyProfileQuery();
+
   const handleEditClick = () => {
     setEditing(true);
   };
@@ -32,6 +39,7 @@ const Profile = () => {
         />
       ) : (
         <>
+          <ProfileImage user={user} />
           <div className="mb-4">
             <h1 className="text-3xl font-semibold mb-2">Profile</h1>
             <p className="text-gray-600">View and edit your profile details</p>

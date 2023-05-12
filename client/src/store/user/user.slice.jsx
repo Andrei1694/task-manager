@@ -8,7 +8,14 @@ const initialState = {
 
 const userSlice = createSlice({
   name: "user",
-  reducers: {},
+  reducers: {
+    setToken: (state, action) => {
+      state.token = action.payload.token;
+    },
+    clearToken: (state, action) => {
+      state.token = null;
+    },
+  },
   initialState,
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -18,9 +25,16 @@ const userSlice = createSlice({
         state.token = payload.token;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.logout.matchFulfilled,
+      (state, { payload }) => {
+        state.user = null;
+        state.token = null;
+      }
+    );
   },
 });
 
 export const selectUserFromState = (state) => state.user;
-
+export const { setToken, clearToken } = userSlice.actions;
 export default userSlice.reducer;

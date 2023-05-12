@@ -1,11 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import UserDetailsForm from "./user-details.form.jsx";
-import { UserContext } from "../../context/UserContext.jsx";
+import { useSelector } from "react-redux";
+import { selectUserFromState } from "../../store/user/user.slice.jsx";
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
-
-  const { user, setUser } = useContext(UserContext);
+  const userSelector = useSelector(selectUserFromState);
+  const { user } = userSelector;
   const { name, email, age } = user;
   const handleEditClick = () => {
     setEditing(true);

@@ -1,12 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import LoginForm from "./login.form.jsx";
 import RegisterForm from "./register.form.jsx";
-import { useMutation } from "react-query";
-import axios from "axios";
-import { login } from "../../requests.js";
 import { useCookies } from "react-cookie";
-import { redirect, useNavigate } from "react-router-dom";
-import { UserContext } from "../../context/UserContext.jsx";
+import { useNavigate } from "react-router-dom";
 
 function AuthPage() {
   const [showRegisterForm, setShowRegisterForm] = useState(false);

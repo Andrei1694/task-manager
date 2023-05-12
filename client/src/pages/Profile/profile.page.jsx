@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import UserDetailsForm from "./user-details.form.jsx";
+import { UserContext } from "../../context/UserContext.jsx";
 
 const Profile = () => {
   const [editing, setEditing] = useState(false);
 
+  const { user, setUser } = useContext(UserContext);
+  const { name, email, age } = user;
   const handleEditClick = () => {
     setEditing(true);
   };
@@ -23,6 +26,7 @@ const Profile = () => {
         <UserDetailsForm
           onCancelClick={handleCancelClick}
           onSaveClick={handleSaveClick}
+          user={user}
         />
       ) : (
         <>
@@ -33,20 +37,15 @@ const Profile = () => {
           <div className="border-t border-gray-200 pt-4">
             <div className="flex mb-4">
               <div className="w-1/3 font-medium">Name</div>
-              <div className="w-2/3">John Doe</div>
+              <div className="w-2/3">{name}</div>
             </div>
             <div className="flex mb-4">
               <div className="w-1/3 font-medium">Email</div>
-              <div className="w-2/3">johndoe@example.com</div>
+              <div className="w-2/3">{email}</div>
             </div>
             <div className="flex mb-4">
-              <div className="w-1/3 font-medium">Bio</div>
-              <div className="w-2/3">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </div>
+              <div className="w-1/3 font-medium">Age</div>
+              <div className="w-2/3">{age}</div>
             </div>
             <div className="flex justify-end">
               <button

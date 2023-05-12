@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import LoginForm from "./login.form.jsx";
 import RegisterForm from "./register.form.jsx";
 import { useMutation } from "react-query";
@@ -6,11 +6,13 @@ import axios from "axios";
 import { login } from "../../requests.js";
 import { useCookies } from "react-cookie";
 import { redirect, useNavigate } from "react-router-dom";
+import { UserContext } from "../../context/UserContext.jsx";
 
 function AuthPage() {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [cookies, setCookie] = useCookies(["login-cookie"]);
   const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
   const toggleForm = () => {
     setShowRegisterForm(!showRegisterForm);
   };
@@ -21,13 +23,13 @@ function AuthPage() {
     },
     onSuccess: (data) => {
       const {
-        data: { token },
+        data: { user, token },
       } = data;
       if (token) {
-        console.log("enter");
         setCookie("loginToken", token);
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        navigate("/home");
+        setUser(user);
+        navigate("/tasks");
       }
     },
   });

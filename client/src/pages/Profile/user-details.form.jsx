@@ -1,7 +1,8 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useUpdateUserMutation } from "../../store/user/user.api";
 
-export default function UserDetailsForm({ user, onSubmit }) {
+export default function UserDetailsForm({ user, handleRequest }) {
   const initialValues = {
     name: user.name,
     email: user.email,
@@ -15,7 +16,7 @@ export default function UserDetailsForm({ user, onSubmit }) {
   });
 
   const handleSubmit = (values) => {
-    onSubmit(values);
+    handleRequest(values);
   };
 
   return (

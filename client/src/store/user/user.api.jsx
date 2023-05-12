@@ -34,6 +34,13 @@ export const userApi = createApi({
         method: "POST",
       }),
     }),
+    updateUser: builder.mutation({
+      query: (user) => ({
+        url: "/users/me",
+        method: "PATCH",
+        body: user,
+      }),
+    }),
   }),
 });
 
@@ -41,4 +48,5 @@ export const {
   useLoginUserMutation,
   useRegisterUserMutation,
   useLogoutMutation,
+  useUpdateUserMutation,
 } = userApi;

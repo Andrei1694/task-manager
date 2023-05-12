@@ -32,6 +32,13 @@ const userSlice = createSlice({
         state.token = null;
       }
     );
+    builder.addMatcher(
+      userApi.endpoints.updateUser.matchFulfilled,
+      (state, { payload }) => {
+        console.log(payload);
+        state.user = payload;
+      }
+    );
   },
 });
 

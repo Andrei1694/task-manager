@@ -38,7 +38,7 @@ function Navbar() {
                   Profile
                 </Link>
                 <Link
-                  to={userSelector.token ? "/" : "/login"}
+                  to={userSelector.token ? "/logout" : "/login"}
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
                   {userSelector.token ? "Logout" : "Login"}
@@ -107,7 +107,7 @@ function Navbar() {
             </Link>
 
             <Link
-              to={userSelector.token ? "/" : "/login"}
+              to={userSelector.token ? "/logout" : "/login"}
               className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
             >
               {userSelector.token ? "Logout" : "Login"}

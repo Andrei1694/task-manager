@@ -8,6 +8,7 @@ import Tasks from "../src/pages/Tasks/tasks.page";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clearToken, setToken } from "./store/user/user.slice";
+import LogoutModal from "./components/LogoutModal";
 
 export default function App() {
   const [cookies] = useCookies(["loginToken"]);
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="login" element={<Login />} />
           <Route path="profile" element={<Profile />} />
           <Route path="tasks" element={<Tasks />} />
+          <Route path="logout" element={<LogoutModal />} />
         </Route>
       </Routes>
     </CookiesProvider>

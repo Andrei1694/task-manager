@@ -1,6 +1,9 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useLoginUserMutation } from "../../store/user/user.api";
+// import { useLoginUserMutation } from "../../store/user/user.slice";
 
-function LoginForm({ toggleForm, mutation }) {
+function LoginForm({ toggleForm }) {
+  const [loginUser] = useLoginUserMutation();
   return (
     <div className="w-full max-w-xs">
       <h2 className="text-2xl font-bold mb-4">Login</h2>
@@ -17,7 +20,7 @@ function LoginForm({ toggleForm, mutation }) {
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          mutation(values);
+          loginUser(values);
         }}
       >
         {({ isSubmitting }) => (

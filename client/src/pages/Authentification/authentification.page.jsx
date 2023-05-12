@@ -12,27 +12,10 @@ function AuthPage() {
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [cookies, setCookie] = useCookies(["login-cookie"]);
   const navigate = useNavigate();
-  const { user, setUser } = useContext(UserContext);
+
   const toggleForm = () => {
     setShowRegisterForm(!showRegisterForm);
   };
-
-  const mutation = useMutation({
-    mutationFn: (loginData) => {
-      return login(loginData);
-    },
-    onSuccess: (data) => {
-      const {
-        data: { user, token },
-      } = data;
-      if (token) {
-        setCookie("loginToken", token);
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-        setUser(user);
-        navigate("/tasks");
-      }
-    },
-  });
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -40,13 +23,7 @@ function AuthPage() {
       {showRegisterForm ? (
         <RegisterForm toggleForm={toggleForm} />
       ) : (
-        <LoginForm
-          toggleForm={toggleForm}
-          mutation={(values) => {
-            console.log("login form", values);
-            mutation.mutate(values);
-          }}
-        />
+        <LoginForm toggleForm={toggleForm} />
       )}
     </div>
   );

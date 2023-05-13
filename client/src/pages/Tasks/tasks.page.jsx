@@ -3,13 +3,23 @@ import TaskForm from "./task.form.jsx";
 import TaskList from "./task-list.component.jsx";
 import TaskModal from "./task-modal.component.jsx";
 import { Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { selectUserFromState } from "../../store/user/user.slice.jsx";
+import { useSelector } from "react-redux";
 
 const Home = () => {
+  // console.log("render child");
   const [tasks, setTasks] = useState([]);
+  const userSelector = useSelector(selectUserFromState);
+  const { token } = userSelector;
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleAddTask = (task) => {
     setTasks([...tasks, task]);
   };
+  useEffect(() => {
+    // if (token) console.log("TaskPage");
+    console.log(token);
+  }, [token]);
 
   const handleCompleteTask = (id) => {
     const updatedTasks = tasks.map((task) => {

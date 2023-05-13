@@ -10,12 +10,13 @@ import { useDispatch } from "react-redux";
 import { clearToken, setToken } from "./store/user/user.slice";
 import LogoutModal from "./components/LogoutModal";
 import { useLazyGetMyProfileQuery } from "./store/user/user.api";
+import { useLayoutEffect } from "react";
 
 export default function App() {
   const [cookies] = useCookies(["loginToken"]);
   const dispatch = useDispatch();
   const [getProfileQuery] = useLazyGetMyProfileQuery();
-  useEffect(() => {
+  useLayoutEffect(() => {
     console.log("app");
     if (cookies) {
       dispatch(setToken(cookies.loginToken));

@@ -8,6 +8,7 @@ import { selectUserFromState } from "../../store/user/user.slice.jsx";
 import { useSelector } from "react-redux";
 
 const Home = () => {
+  // console.log("render child");
   const [tasks, setTasks] = useState([]);
   const userSelector = useSelector(selectUserFromState);
   const { token } = userSelector;
@@ -16,7 +17,8 @@ const Home = () => {
     setTasks([...tasks, task]);
   };
   useEffect(() => {
-    if (token) console.log("TaskPage");
+    // if (token) console.log("TaskPage");
+    console.log(token);
   }, [token]);
 
   const handleCompleteTask = (id) => {

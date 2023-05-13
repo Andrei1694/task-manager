@@ -3,7 +3,6 @@ import { selectUserFromState } from "../store/user/user.slice";
 
 const Home = () => {
   const user = useSelector(selectUserFromState);
-  console.log(user);
   return (
     <>
       <h1>Task Manager App</h1>

@@ -35,14 +35,12 @@ const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.updateUser.matchFulfilled,
       (state, { payload }) => {
-        console.log(payload);
         state.user = payload;
       }
     );
     builder.addMatcher(
       userApi.endpoints.getMyProfile.matchFulfilled,
       (state, { payload }) => {
-        console.log(payload);
         state.user = payload;
       }
     );

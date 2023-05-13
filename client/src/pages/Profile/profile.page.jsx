@@ -14,7 +14,7 @@ const Profile = () => {
   const { name, email, age } = user ?? {};
   const [updateUser] = useUpdateUserMutation();
 
-  const [getUserQuery, { data }] = useLazyGetMyProfileQuery();
+  // const [getUserQuery, { data }] = useLazyGetMyProfileQuery();
 
   const handleEditClick = () => {
     setEditing(true);

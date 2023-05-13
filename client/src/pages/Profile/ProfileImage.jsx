@@ -5,22 +5,27 @@ import {
 } from "../../store/user/user.api";
 
 function ProfileImage({ user }) {
-  const [uploadAvatar] = useUploadAvatarMutation();
+  const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
   const [url, setUrl] = useState("");
   const [imgKey, setImgKey] = useState(0);
   const [avatar, setAvatar] = useState(null);
   const [getUserQuery, { data }] = useLazyGetMyProfileQuery();
-  const baseUrl = "http://localhost:4000/users/";
+  const baseUrl = `http://localhost:4000/users/${user?._id}/avatar`;
+
+  useEffect(() => {
+    user && setUrl(`http://localhost:4000/users/${user?._id}/avatar`);
+  }, [user]);
+  const handleFileInputChange = (event) => {
+    const file = event.target.files[0];
+    setAvatar(file);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     const formData = new FormData();
     formData.append("avatar", avatar);
-
     try {
-      console.log("uploading");
-      const response = await uploadAvatar(formData).unwrap();
-      const copyUrl = url;
+      await uploadAvatar(formData).unwrap();
       setUrl(`${baseUrl}?ceva=${imgKey}`);
       getUserQuery();
       setImgKey((prevKey) => prevKey + 1);
@@ -28,21 +33,19 @@ function ProfileImage({ user }) {
       console.error("Image upload failed:", error);
     }
   };
-  useEffect(() => {
-    setUrl(`http://localhost:4000/users/${user?._id}/avatar`);
-  }, [user]);
-  const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    setAvatar(file);
-  };
+
   return (
     <div className="mb-4" id="upload">
-      <img
-        src={url}
-        alt=""
-        key={imgKey}
-        className="rounded-full object-cover h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-40 lg:w-40"
-      />
+      {!isLoading ? (
+        <img
+          src={url}
+          alt=""
+          key={imgKey}
+          className="rounded-full object-cover h-20 w-20 sm:h-24 sm:w-24 md:h-32 md:w-32 lg:h-40 lg:w-40"
+        />
+      ) : (
+        <h5>Loading</h5>
+      )}
       <form encType="multipart/form-data" onSubmit={handleSubmit}>
         <div>
           <label htmlFor="avatar">Avatar Image</label>

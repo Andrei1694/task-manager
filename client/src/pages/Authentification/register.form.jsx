@@ -32,7 +32,6 @@ const RegisterForm = () => {
   });
 
   const onSubmit = (values) => {
-    console.log(values);
     registerUser(values);
   };
 

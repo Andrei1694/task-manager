@@ -17,7 +17,6 @@ export default function App() {
   const [getProfileQuery] = useLazyGetMyProfileQuery();
   useEffect(() => {
     if (cookies) {
-      console.log(cookies);
       dispatch(setToken(cookies.loginToken));
       getProfileQuery();
     } else {

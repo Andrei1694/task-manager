@@ -13,7 +13,7 @@ function ProfileImage({ user }) {
   const baseUrl = `http://localhost:4000/users/${user?._id}/avatar`;
 
   useEffect(() => {
-    user && setUrl(`http://localhost:4000/users/${user?._id}/avatar`);
+    user && setUrl(baseUrl);
   }, [user]);
   const handleFileInputChange = (event) => {
     const file = event.target.files[0];
@@ -25,9 +25,8 @@ function ProfileImage({ user }) {
     const formData = new FormData();
     formData.append("avatar", avatar);
     try {
-      await uploadAvatar(formData).unwrap();
+      await uploadAvatar(formData);
       setUrl(`${baseUrl}?ceva=${imgKey}`);
-      getUserQuery();
       setImgKey((prevKey) => prevKey + 1);
     } catch (error) {
       console.error("Image upload failed:", error);

@@ -9,13 +9,17 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { clearToken, setToken } from "./store/user/user.slice";
 import LogoutModal from "./components/LogoutModal";
+import { useLazyGetMyProfileQuery } from "./store/user/user.api";
 
 export default function App() {
   const [cookies] = useCookies(["loginToken"]);
   const dispatch = useDispatch();
+  const [getProfileQuery] = useLazyGetMyProfileQuery();
   useEffect(() => {
     if (cookies) {
-      setToken(cookies);
+      console.log(cookies);
+      dispatch(setToken(cookies.loginToken));
+      getProfileQuery();
     } else {
       dispatch(clearToken());
     }

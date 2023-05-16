@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import TaskForm from "./task.form.jsx";
-import TaskList from "./task-list.component.jsx";
-import TaskModal from "./task-modal.component.jsx";
+import TaskForm from "./TaskForm.jsx";
+import TaskList from "./TaskList.jsx";
+import TaskModal from "./TaskModal.jsx";
 
 import {
   useCreateTaskMutation,
@@ -26,7 +26,6 @@ const TaskPage = () => {
   useEffect(() => {
     user && getMyTasks();
   }, [user]);
-
 
   const onSubmit = (e) => {
     console.log(e);

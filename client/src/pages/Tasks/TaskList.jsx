@@ -17,7 +17,7 @@ const TaskList = ({
           <ul className="border border-gray-300 p-4">
             {ongoingTasks.map((task) => (
               <li
-                key={task.id}
+                key={`ongoing${task._id}`}
                 className="flex items-center justify-between py-2"
               >
                 <span onClick={() => setToEditTask(task)}>
@@ -50,7 +50,7 @@ const TaskList = ({
           <ul className="border border-gray-300 p-4">
             {completedTasks.map((task) => (
               <li
-                key={task.id}
+                key={`completed${task._id}`}
                 className="flex items-center justify-between py-2"
               >
                 <span className="line-through">{task.description}</span>

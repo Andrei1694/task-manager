@@ -1,5 +1,5 @@
 import React from "react";
-import TaskForm from "./task.form";
+import TaskForm from "./TaskForm";
 
 const TaskModal = ({ isOpen, onClose, onSubmit, task }) => {
   return (

@@ -1,46 +1,12 @@
 import { useState } from "react";
 
-const TaskList = () => {
-  const [tasks, setTasks] = useState([
-    { id: 1, title: "Task 1", completed: false },
-    { id: 2, title: "Task 2", completed: true },
-    { id: 3, title: "Task 3", completed: false },
-  ]);
-
-  const [newTaskTitle, setNewTaskTitle] = useState("");
-
-  const handleNewTaskTitleChange = (e) => {
-    setNewTaskTitle(e.target.value);
-  };
-
-  const handleTaskAdd = (e) => {
-    e.preventDefault();
-    if (!newTaskTitle) return;
-    setTasks([
-      ...tasks,
-      {
-        id: tasks.length + 1,
-        title: newTaskTitle,
-        completed: false,
-      },
-    ]);
-    setNewTaskTitle("");
-  };
-
+const TaskList = ({ tasks, handleTaskComplete }) => {
   const handleTaskDelete = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
   };
 
-  const handleTaskComplete = (taskId) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId ? { ...task, completed: true } : task
-      )
-    );
-  };
-
-  const ongoingTasks = tasks.filter((task) => !task.completed);
-  const completedTasks = tasks.filter((task) => task.completed);
+  const ongoingTasks = tasks ? tasks.filter((task) => !task.completed) : [];
+  const completedTasks = tasks ? tasks.filter((task) => task.completed) : [];
 
   return (
     <div className="flex flex-col md:flex-row justify-center gap-8">
@@ -53,16 +19,16 @@ const TaskList = () => {
                 key={task.id}
                 className="flex items-center justify-between py-2"
               >
-                <span>{task.title}</span>
+                <span>{task.description}</span>
                 <div>
                   <button
-                    onClick={() => handleTaskComplete(task.id)}
+                    onClick={() => handleTaskComplete(task)}
                     className="text-green-500 hover:text-green-700"
                   >
                     Mark as complete
                   </button>
                   <button
-                    onClick={() => handleTaskDelete(task.id)}
+                    onClick={() => handleTaskDelete(task)}
                     className="ml-2 text-red-500 hover:text-red-700"
                   >
                     Delete
@@ -84,7 +50,7 @@ const TaskList = () => {
                 key={task.id}
                 className="flex items-center justify-between py-2"
               >
-                <span className="line-through">{task.title}</span>
+                <span className="line-through">{task.description}</span>
                 <button
                   onClick={() => handleTaskDelete(task.id)}
                   className="ml-2 text-red-500 hover:text-red-700"

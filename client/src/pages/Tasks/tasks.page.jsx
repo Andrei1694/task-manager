@@ -1,30 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskForm from "./task.form.jsx";
 import TaskList from "./task-list.component.jsx";
 import TaskModal from "./task-modal.component.jsx";
-import { Outlet } from "react-router-dom";
+import {
+  useCreateTaskMutation,
+  useLazyGetMyTasksQuery,
+  useUpdateTaskMutation,
+} from "../../store/tasks/tasks.api.jsx";
+import { useSelector } from "react-redux";
+import { selectUserFromState } from "../../store/user/user.slice.jsx";
 
 const Home = () => {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleAddTask = (task) => {
-    setTasks([...tasks, task]);
+  const [createTask] = useCreateTaskMutation();
+  const [getMyTasks, { data: tasks, isLoading }] = useLazyGetMyTasksQuery();
+  // console.log(refetch);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const { user } = useSelector(selectUserFromState);
+  const [updateTask] = useUpdateTaskMutation();
+
+  useEffect(() => {
+    user && getMyTasks();
+  }, [user]);
+
+  const onSubmit = (e) => {
+    console.log(e);
+    if (isEditMode) {
+      return;
+    }
+    createTask(e);
+    getMyTasks();
   };
-
-  const handleCompleteTask = (id) => {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === id) {
-        return { ...task, completed: true };
-      } else {
-        return task;
-      }
-    });
-    setTasks(updatedTasks);
+  const handleTaskComplete = (task) => {
+    const { _id } = task;
+    const completeTask = {
+      _id,
+      completed: true,
+    };
+    updateTask(completeTask);
+    getMyTasks();
   };
-
-  const onGoingTasks = tasks.filter((task) => !task.completed);
-  const completedTasks = tasks.filter((task) => task.completed);
-
   return (
     <>
       <TaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
@@ -38,16 +54,14 @@ const Home = () => {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <h2 className="text-xl font-semibold mb-2">On Going Tasks</h2>
-            <TaskList tasks={onGoingTasks} onComplete={handleCompleteTask} />
-          </div>
-          <div className="flex-1">
-            <h2 className="text-xl font-semibold mb-2">Completed Tasks</h2>
-            <TaskList tasks={completedTasks} onComplete={handleCompleteTask} />
+            {!isLoading ? (
+              <TaskList tasks={tasks} handleTaskComplete={handleTaskComplete} />
+            ) : null}
           </div>
         </div>
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-2">Add New Task</h2>
-          <TaskForm onAddTask={handleAddTask} />
+          <TaskForm onSubmit={onSubmit} />
         </div>
       </div>
     </>

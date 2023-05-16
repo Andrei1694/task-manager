@@ -1,12 +1,16 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-
-const TaskForm = ({ initialValues, onSubmit }) => {
+const initialValues = {
+  title: "",
+  description: "",
+  completed: false,
+};
+const TaskForm = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Title is required"),
     description: Yup.string().required("Description is required"),
-    dueDate: Yup.date().required("Due date is required"),
+    // dueDate: Yup.date().required("Due date is required"),
   });
 
   return (
@@ -55,7 +59,7 @@ const TaskForm = ({ initialValues, onSubmit }) => {
                 {(msg) => <p className="text-red-500 text-xs italic">{msg}</p>}
               </ErrorMessage>
             </div>
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label
                 className="block text-gray-700 font-bold mb-2"
                 htmlFor="dueDate"
@@ -71,7 +75,7 @@ const TaskForm = ({ initialValues, onSubmit }) => {
               <ErrorMessage name="dueDate">
                 {(msg) => <p className="text-red-500 text-xs italic">{msg}</p>}
               </ErrorMessage>
-            </div>
+            </div> */}
             <div className="flex items-center justify-between">
               <button
                 type="submit"

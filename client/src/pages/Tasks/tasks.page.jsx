@@ -1,43 +1,69 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TaskForm from "./task.form.jsx";
 import TaskList from "./task-list.component.jsx";
 import TaskModal from "./task-modal.component.jsx";
-import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
-import { selectUserFromState } from "../../store/user/user.slice.jsx";
+
+import {
+  useCreateTaskMutation,
+  useDeleteTaskMutation,
+  useLazyGetMyTasksQuery,
+  useUpdateTaskMutation,
+} from "../../store/tasks/tasks.api.jsx";
 import { useSelector } from "react-redux";
+import { selectUserFromState } from "../../store/user/user.slice.jsx";
 
-const Home = () => {
-  // console.log("render child");
-  const [tasks, setTasks] = useState([]);
-  const userSelector = useSelector(selectUserFromState);
-  const { token } = userSelector;
+const TaskPage = () => {
+  // const [tasks, setTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const handleAddTask = (task) => {
-    setTasks([...tasks, task]);
-  };
+  const [createTask] = useCreateTaskMutation();
+  const [getMyTasks, { data: tasks, isLoading }] = useLazyGetMyTasksQuery();
+  // console.log(refetch);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const { user } = useSelector(selectUserFromState);
+  const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
+  const [toEditTask, setToEditTask] = useState(null);
   useEffect(() => {
-    // if (token) console.log("TaskPage");
-    console.log(token);
-  }, [token]);
+    user && getMyTasks();
+  }, [user]);
 
-  const handleCompleteTask = (id) => {
-    const updatedTasks = tasks.map((task) => {
-      if (task.id === id) {
-        return { ...task, completed: true };
-      } else {
-        return task;
-      }
-    });
-    setTasks(updatedTasks);
+
+  const onSubmit = (e) => {
+    console.log(e);
+    if (isEditMode) {
+      return;
+    }
+    createTask(e);
+    getMyTasks();
   };
-
-  const onGoingTasks = tasks.filter((task) => !task.completed);
-  const completedTasks = tasks.filter((task) => task.completed);
-
+  const handleTaskComplete = (task, isCompleting) => {
+    let { _id, description, completed } = task;
+    if (isCompleting) completed = true;
+    const completeTask = {
+      _id,
+      completed,
+      ...(description && { description }),
+    };
+    updateTask(completeTask);
+    getMyTasks();
+  };
+  const handleDeleteTask = (task) => {
+    const { _id } = task;
+    deleteTask(_id);
+    getMyTasks();
+  };
+  const setToEditTaskMode = (task) => {
+    setToEditTask(task);
+    setIsModalOpen(true);
+  };
   return (
     <>
-      <TaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <TaskModal
+        task={toEditTask}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleTaskComplete}
+      />
       <div className="container mx-auto py-4">
         <h1
           className="text-3xl font-bold mb-4"
@@ -48,20 +74,23 @@ const Home = () => {
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1">
             <h2 className="text-xl font-semibold mb-2">On Going Tasks</h2>
-            <TaskList tasks={onGoingTasks} onComplete={handleCompleteTask} />
-          </div>
-          <div className="flex-1">
-            <h2 className="text-xl font-semibold mb-2">Completed Tasks</h2>
-            <TaskList tasks={completedTasks} onComplete={handleCompleteTask} />
+            {!isLoading ? (
+              <TaskList
+                tasks={tasks}
+                handleTaskComplete={(task) => handleTaskComplete(task, true)}
+                handleDeleteTask={handleDeleteTask}
+                setToEditTask={setToEditTaskMode}
+              />
+            ) : null}
           </div>
         </div>
         <div className="mt-8">
           <h2 className="text-xl font-semibold mb-2">Add New Task</h2>
-          <TaskForm onAddTask={handleAddTask} />
+          <TaskForm onSubmit={onSubmit} />
         </div>
       </div>
     </>
   );
 };
 
-export default Home;
+export default TaskPage;

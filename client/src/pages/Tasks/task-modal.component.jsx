@@ -1,6 +1,7 @@
 import React from "react";
+import TaskForm from "./task.form";
 
-const TaskModal = ({ isOpen, onClose, initialValues, onSubmit }) => {
+const TaskModal = ({ isOpen, onClose, onSubmit, task }) => {
   return (
     <>
       {isOpen && (
@@ -21,7 +22,12 @@ const TaskModal = ({ isOpen, onClose, initialValues, onSubmit }) => {
               aria-labelledby="modal-headline"
             >
               <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                {/* TaskForm goes here */}
+                <TaskForm
+                  initialValues={{ description: task.description }}
+                  onSubmit={({ description }) => {
+                    onSubmit({ ...task, description });
+                  }}
+                />
               </div>
             </div>
           </div>

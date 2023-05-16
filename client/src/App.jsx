@@ -17,7 +17,6 @@ export default function App() {
   const dispatch = useDispatch();
   const [getProfileQuery] = useLazyGetMyProfileQuery();
   useLayoutEffect(() => {
-    console.log("app");
     if (cookies) {
       dispatch(setToken(cookies.loginToken));
       getProfileQuery();

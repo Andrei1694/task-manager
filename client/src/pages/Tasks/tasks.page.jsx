@@ -10,16 +10,14 @@ import { useSelector } from "react-redux";
 const Home = () => {
   // console.log("render child");
   const [tasks, setTasks] = useState([]);
-  const userSelector = useSelector(selectUserFromState);
-  const { token } = userSelector;
+  const { user } = useSelector(selectUserFromState);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleAddTask = (task) => {
     setTasks([...tasks, task]);
   };
   useEffect(() => {
-    // if (token) console.log("TaskPage");
-    console.log(token);
-  }, [token]);
+    console.log(user);
+  }, []);
 
   const handleCompleteTask = (id) => {
     const updatedTasks = tasks.map((task) => {

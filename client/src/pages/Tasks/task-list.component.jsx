@@ -1,6 +1,11 @@
 import { useState } from "react";
 
-const TaskList = ({ tasks, handleTaskComplete, handleDeleteTask }) => {
+const TaskList = ({
+  tasks,
+  handleTaskComplete,
+  handleDeleteTask,
+  setToEditTask,
+}) => {
   const ongoingTasks = tasks ? tasks.filter((task) => !task.completed) : [];
   const completedTasks = tasks ? tasks.filter((task) => task.completed) : [];
 
@@ -15,7 +20,9 @@ const TaskList = ({ tasks, handleTaskComplete, handleDeleteTask }) => {
                 key={task.id}
                 className="flex items-center justify-between py-2"
               >
-                <span>{task.description}</span>
+                <span onClick={() => setToEditTask(task)}>
+                  {task.description}
+                </span>
                 <div>
                   <button
                     onClick={() => handleTaskComplete(task)}

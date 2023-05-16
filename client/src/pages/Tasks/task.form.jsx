@@ -1,22 +1,19 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-const initialValues = {
-  title: "",
-  description: "",
-  completed: false,
-};
-const TaskForm = ({ onSubmit }) => {
+
+const TaskForm = ({ onSubmit, initialValues }) => {
   const validationSchema = Yup.object().shape({
-    title: Yup.string().required("Title is required"),
     description: Yup.string().required("Description is required"),
-    // dueDate: Yup.date().required("Due date is required"),
   });
 
+  const initVal = initialValues ?? {
+    description: "",
+  };
   return (
     <div className="max-w-md mx-auto">
       <Formik
-        initialValues={initialValues}
+        initialValues={initVal}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
@@ -79,7 +76,7 @@ const TaskForm = ({ onSubmit }) => {
             <div className="flex items-center justify-between">
               <button
                 type="submit"
-                disabled={!isValid || isSubmitting}
+                // disabled={!isValid || isSubmitting}
                 className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
                 Submit

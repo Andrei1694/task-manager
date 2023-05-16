@@ -11,7 +11,7 @@ import {
 import { useSelector } from "react-redux";
 import { selectUserFromState } from "../../store/user/user.slice.jsx";
 
-const Home = () => {
+const TaskPage = () => {
   // const [tasks, setTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
@@ -21,7 +21,7 @@ const Home = () => {
   const { user } = useSelector(selectUserFromState);
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
-
+  const [toEditTask, setToEditTask] = useState(null);
   useEffect(() => {
     user && getMyTasks();
   }, [user]);
@@ -34,11 +34,13 @@ const Home = () => {
     createTask(e);
     getMyTasks();
   };
-  const handleTaskComplete = (task) => {
-    const { _id } = task;
+  const handleTaskComplete = (task, isCompleting) => {
+    let { _id, description, completed } = task;
+    if (isCompleting) completed = true;
     const completeTask = {
       _id,
-      completed: true,
+      completed,
+      ...(description && { description }),
     };
     updateTask(completeTask);
     getMyTasks();
@@ -48,9 +50,18 @@ const Home = () => {
     deleteTask(_id);
     getMyTasks();
   };
+  const setToEditTaskMode = (task) => {
+    setToEditTask(task);
+    setIsModalOpen(true);
+  };
   return (
     <>
-      <TaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <TaskModal
+        task={toEditTask}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleTaskComplete}
+      />
       <div className="container mx-auto py-4">
         <h1
           className="text-3xl font-bold mb-4"
@@ -64,8 +75,9 @@ const Home = () => {
             {!isLoading ? (
               <TaskList
                 tasks={tasks}
-                handleTaskComplete={handleTaskComplete}
+                handleTaskComplete={(task) => handleTaskComplete(task, true)}
                 handleDeleteTask={handleDeleteTask}
+                setToEditTask={setToEditTaskMode}
               />
             ) : null}
           </div>
@@ -79,4 +91,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default TaskPage;

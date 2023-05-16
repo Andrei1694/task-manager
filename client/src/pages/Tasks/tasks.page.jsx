@@ -4,6 +4,7 @@ import TaskList from "./task-list.component.jsx";
 import TaskModal from "./task-modal.component.jsx";
 import {
   useCreateTaskMutation,
+  useDeleteTaskMutation,
   useLazyGetMyTasksQuery,
   useUpdateTaskMutation,
 } from "../../store/tasks/tasks.api.jsx";
@@ -19,6 +20,7 @@ const Home = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const { user } = useSelector(selectUserFromState);
   const [updateTask] = useUpdateTaskMutation();
+  const [deleteTask] = useDeleteTaskMutation();
 
   useEffect(() => {
     user && getMyTasks();
@@ -41,6 +43,11 @@ const Home = () => {
     updateTask(completeTask);
     getMyTasks();
   };
+  const handleDeleteTask = (task) => {
+    const { _id } = task;
+    deleteTask(_id);
+    getMyTasks();
+  };
   return (
     <>
       <TaskModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
@@ -55,7 +62,11 @@ const Home = () => {
           <div className="flex-1">
             <h2 className="text-xl font-semibold mb-2">On Going Tasks</h2>
             {!isLoading ? (
-              <TaskList tasks={tasks} handleTaskComplete={handleTaskComplete} />
+              <TaskList
+                tasks={tasks}
+                handleTaskComplete={handleTaskComplete}
+                handleDeleteTask={handleDeleteTask}
+              />
             ) : null}
           </div>
         </div>

@@ -26,6 +26,12 @@ export const tasksApi = createApi({
         body,
       }),
     }),
+    deleteTask: builder.mutation({
+      query: (_id) => ({
+        url: `/${_id}`,
+        method: "DELETE",
+      }),
+    }),
     getMyTasks: builder.query({
       query: () => "",
     }),
@@ -36,4 +42,5 @@ export const {
   useCreateTaskMutation,
   useLazyGetMyTasksQuery,
   useUpdateTaskMutation,
+  useDeleteTaskMutation,
 } = tasksApi;

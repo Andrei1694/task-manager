@@ -1,10 +1,6 @@
 import { useState } from "react";
 
-const TaskList = ({ tasks, handleTaskComplete }) => {
-  const handleTaskDelete = (taskId) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
-  };
-
+const TaskList = ({ tasks, handleTaskComplete, handleDeleteTask }) => {
   const ongoingTasks = tasks ? tasks.filter((task) => !task.completed) : [];
   const completedTasks = tasks ? tasks.filter((task) => task.completed) : [];
 
@@ -28,7 +24,7 @@ const TaskList = ({ tasks, handleTaskComplete }) => {
                     Mark as complete
                   </button>
                   <button
-                    onClick={() => handleTaskDelete(task)}
+                    onClick={() => handleDeleteTask(task)}
                     className="ml-2 text-red-500 hover:text-red-700"
                   >
                     Delete
@@ -52,7 +48,7 @@ const TaskList = ({ tasks, handleTaskComplete }) => {
               >
                 <span className="line-through">{task.description}</span>
                 <button
-                  onClick={() => handleTaskDelete(task.id)}
+                  onClick={() => handleDeleteTask(task)}
                   className="ml-2 text-red-500 hover:text-red-700"
                 >
                   Delete

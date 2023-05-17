@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
-import ErrorPage from "../pages/Error";
-import Home from "../pages/Home";
-import Layout from "./Layout";
-import TaskPage from "../pages/Tasks/TaskPage";
-import LogoutModal from "../components/LogoutModal";
-import LoginPage from "../pages/Authentification/LoginPage";
-import Profile from "../pages/Profile/ProfilePage";
+
+import { lazy } from "react";
+const Layout = lazy(() => import("./Layout"));
+const TaskPage = lazy(() => import("../pages/Tasks/TaskPage"));
+const LogoutModal = lazy(import("../components/LogoutModal"));
+const Profile = lazy(() => import("../pages/Profile/ProfilePage"));
+const ErrorPage = lazy(() => import("../pages/Error"));
+const Home = lazy(() => import("../pages/Home"));
+const LoginPage = lazy(() => import("../pages/Authentification/LoginPage"));
 
 const router = createBrowserRouter([
   {

@@ -100,6 +100,12 @@ function Navbar() {
               Home
             </Link>
             <Link
+              to="/tasks"
+              className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+            >
+              Tasks
+            </Link>
+            <Link
               to="/profile"
               className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
             >

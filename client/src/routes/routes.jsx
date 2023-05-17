@@ -3,7 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { lazy } from "react";
 const Layout = lazy(() => import("./Layout"));
 const TaskPage = lazy(() => import("../pages/Tasks/TaskPage"));
-const LogoutModal = lazy(import("../components/LogoutModal"));
+const LogoutModal = lazy(() => import("../components/LogoutModal"));
 const Profile = lazy(() => import("../pages/Profile/ProfilePage"));
 const ErrorPage = lazy(() => import("../pages/Error"));
 const Home = lazy(() => import("../pages/Home"));

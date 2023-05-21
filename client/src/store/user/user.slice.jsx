@@ -41,15 +41,11 @@ const userSlice = createSlice({
     builder.addMatcher(
       userApi.endpoints.getMyProfile.matchFulfilled,
       (state, { payload }) => {
-        console.log(state.user);
-        console.log("getmyprofile");
-        console.log(payload);
         state.user = payload;
       }
     );
   },
 });
 
-export const selectUserFromState = (state) => state.user;
 export const { setToken, clearToken } = userSlice.actions;
 export default userSlice.reducer;

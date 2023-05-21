@@ -1,6 +1,3 @@
-import { useSelector } from "react-redux";
-import { selectUserFromState } from "../store/user/user.slice";
-
 const Home = () => {
   return (
     <>

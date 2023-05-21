@@ -10,47 +10,59 @@ import {
   useUpdateTaskMutation,
 } from "../../store/tasks/tasks.api.jsx";
 import { useSelector } from "react-redux";
-import { selectUserFromState } from "../../store/user/user.slice.jsx";
 
-const TaskPage = () => {
-  // const [tasks, setTasks] = useState([]);
+import { selectTasksSelector } from "../../store/tasks/tasks.selector.jsx";
+import { useCallback } from "react";
+import { selectUserFromState } from "../../store/user/user.selector.jsx";
+
+export default function TaskPage() {
+  console.log("rerender parent");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
-  const [getMyTasks, { data: tasks, isLoading }] = useLazyGetMyTasksQuery();
-  // console.log(refetch);
+  const [getMyTasks, { isLoading }] = useLazyGetMyTasksQuery();
   const [isEditMode, setIsEditMode] = useState(false);
-  const { user } = useSelector(selectUserFromState);
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
   const [toEditTask, setToEditTask] = useState(null);
+  const tasks = useSelector(selectTasksSelector);
+  const { user } = useSelector(selectUserFromState);
   useEffect(() => {
     user && getMyTasks();
   }, [user]);
 
   const onSubmit = (e) => {
-    console.log(e);
     if (isEditMode) {
       return;
     }
     createTask(e);
     getMyTasks();
   };
-  const handleTaskComplete = (task, isCompleting) => {
-    let { _id, description, completed } = task;
-    if (isCompleting) completed = true;
-    const completeTask = {
-      _id,
-      completed,
-      ...(description && { description }),
-    };
-    updateTask(completeTask);
-    getMyTasks();
-  };
-  const handleDeleteTask = (task) => {
-    const { _id } = task;
-    deleteTask(_id);
-    getMyTasks();
-  };
+
+  const handleTaskComplete = useCallback(
+    async (task, isCompleting) => {
+      console.log(task);
+      let { id, description, completed } = task;
+      if (isCompleting) completed = true;
+      const completeTask = {
+        id,
+        completed,
+        ...(description && { description }),
+      };
+
+      await updateTask(completeTask);
+      await getMyTasks();
+    },
+    [tasks]
+  );
+  const handleDeleteTask = useCallback(
+    async (task) => {
+      const { id } = task;
+      console.log(id);
+      await deleteTask(id);
+      await getMyTasks();
+    },
+    [tasks]
+  );
   const setToEditTaskMode = (task) => {
     setToEditTask(task);
     setIsModalOpen(true);
@@ -90,6 +102,4 @@ const TaskPage = () => {
       </div>
     </>
   );
-};
-
-export default TaskPage;
+}

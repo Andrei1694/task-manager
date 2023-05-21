@@ -19,7 +19,7 @@ const TaskForm = ({ onSubmit, initialValues }) => {
       >
         {({ isSubmitting, isValid }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div className="mb-4">
+            {/* <div className="mb-4">
               <label
                 className="block text-gray-700 font-bold mb-2"
                 htmlFor="title"
@@ -36,7 +36,7 @@ const TaskForm = ({ onSubmit, initialValues }) => {
               <ErrorMessage name="title">
                 {(msg) => <p className="text-red-500 text-xs italic">{msg}</p>}
               </ErrorMessage>
-            </div>
+            </div> */}
             <div className="mb-4">
               <label
                 className="block text-gray-700 font-bold mb-2"

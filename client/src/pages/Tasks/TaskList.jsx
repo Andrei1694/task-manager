@@ -11,13 +11,12 @@ const TaskList = ({
   const [completedTasks, setCompletedTasks] = useState({});
 
   useEffect(() => {
-    if (Object.keys(tasks).length > 0) filterTasks(tasks);
+    tasks && filterTasks(tasks);
   }, [tasks]);
 
   const filterTasks = (tasks) => {
     const onGoingTasksCopy = {};
     const completedTasksCopy = {};
-    console.log("filter");
     Object.keys(tasks).forEach((key) => {
       const task = tasks[key];
       const isCompleted = task.completed;
@@ -38,11 +37,11 @@ const TaskList = ({
               const task = tasks[key];
               return (
                 <li
-                  key={`ongoing${task.id}`}
+                  key={`ongoing${task?.id}`}
                   className="flex items-center justify-between py-2"
                 >
                   <span onClick={() => setToEditTask(task)}>
-                    {task.description}
+                    {task?.description}
                   </span>
                   <div>
                     <button
@@ -74,10 +73,10 @@ const TaskList = ({
               const task = tasks[key];
               return (
                 <li
-                  key={`completed${task.id}`}
+                  key={`completed${task?.id}`}
                   className="flex items-center justify-between py-2"
                 >
-                  <span className="line-through">{task.description}</span>
+                  <span className="line-through">{task?.description}</span>
                   <button
                     onClick={() => handleDeleteTask(task)}
                     className="ml-2 text-red-500 hover:text-red-700"

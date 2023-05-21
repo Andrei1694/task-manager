@@ -35,7 +35,7 @@ const TaskPage = () => {
     createTask(e);
     getMyTasks();
   };
-  const handleTaskComplete = (task, isCompleting) => {
+  const handleTaskComplete = async (task, isCompleting) => {
     console.log(task);
     let { id, description, completed } = task;
     if (isCompleting) completed = true;
@@ -45,14 +45,14 @@ const TaskPage = () => {
       ...(description && { description }),
     };
 
-    updateTask(completeTask);
-    getMyTasks(null, false);
+    await updateTask(completeTask);
+    await getMyTasks();
   };
-  const handleDeleteTask = (task) => {
+  const handleDeleteTask = async (task) => {
     const { id } = task;
     console.log(id);
-    deleteTask(id);
-    getMyTasks();
+    await deleteTask(id);
+    await getMyTasks();
   };
   const setToEditTaskMode = (task) => {
     setToEditTask(task);

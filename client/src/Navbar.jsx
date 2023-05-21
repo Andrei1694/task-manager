@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Link, Outlet } from "react-router-dom";
-import { selectUserFromState } from "./store/user/user.slice";
+import { Link } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+import { selectUserFromState } from "./store/user/user.selector";
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const userSelector = useSelector(selectUserFromState);

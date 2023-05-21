@@ -47,6 +47,5 @@ const userSlice = createSlice({
   },
 });
 
-export const selectUserFromState = (state) => state.user;
 export const { setToken, clearToken } = userSlice.actions;
 export default userSlice.reducer;

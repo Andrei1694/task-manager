@@ -1,4 +1,4 @@
-import { createSelector } from "@reduxjs/toolkit";
+import { createDraftSafeSelector, createSelector } from "@reduxjs/toolkit";
 
 const selectTasks = (state) => state.tasks;
 // export const selectTasksSelector = (state) => {
@@ -15,16 +15,19 @@ const selectTasks = (state) => state.tasks;
 // }; 5 renders
 
 // 3 renders
-export const selectTasksSelector = createSelector(selectTasks, ({ tasks }) => {
-  console.log(tasks);
-  const tasksMap = tasks.reduce((acc, task) => {
-    const { _id, completed, description } = task;
-    acc[_id] = {
-      id: _id,
-      completed,
-      description,
-    };
-    return acc;
-  }, {});
-  return tasksMap;
-});
+export const selectTasksSelector = createDraftSafeSelector(
+  selectTasks,
+  ({ tasks }) => {
+    console.log(tasks);
+    const tasksMap = tasks.reduce((acc, task) => {
+      const { _id, completed, description } = task;
+      acc[_id] = {
+        id: _id,
+        completed,
+        description,
+      };
+      return acc;
+    }, {});
+    return tasksMap;
+  }
+);

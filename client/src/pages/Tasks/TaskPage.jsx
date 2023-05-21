@@ -10,22 +10,22 @@ import {
   useUpdateTaskMutation,
 } from "../../store/tasks/tasks.api.jsx";
 import { useSelector } from "react-redux";
-import { selectUserFromState } from "../../store/user/user.slice.jsx";
+
 import { selectTasksSelector } from "../../store/tasks/tasks.selector.jsx";
 import { useCallback } from "react";
+import { selectUserFromState } from "../../store/user/user.selector.jsx";
 
-const TaskPage = () => {
+export default function TaskPage() {
   console.log("rerender parent");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
   const [getMyTasks, { isLoading }] = useLazyGetMyTasksQuery();
-
   const [isEditMode, setIsEditMode] = useState(false);
-  const { user } = useSelector(selectUserFromState);
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
   const [toEditTask, setToEditTask] = useState(null);
   const tasks = useSelector(selectTasksSelector);
+  const { user } = useSelector(selectUserFromState);
   useEffect(() => {
     user && getMyTasks();
   }, [user]);
@@ -102,6 +102,4 @@ const TaskPage = () => {
       </div>
     </>
   );
-};
-
-export default TaskPage;
+}

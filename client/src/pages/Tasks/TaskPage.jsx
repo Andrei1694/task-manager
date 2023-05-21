@@ -12,8 +12,10 @@ import {
 import { useSelector } from "react-redux";
 import { selectUserFromState } from "../../store/user/user.slice.jsx";
 import { selectTasksSelector } from "../../store/tasks/tasks.selector.jsx";
+import { useCallback } from "react";
 
 const TaskPage = () => {
+  console.log("rerender parent");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
   const [getMyTasks, { isLoading }] = useLazyGetMyTasksQuery();
@@ -35,25 +37,32 @@ const TaskPage = () => {
     createTask(e);
     getMyTasks();
   };
-  const handleTaskComplete = async (task, isCompleting) => {
-    console.log(task);
-    let { id, description, completed } = task;
-    if (isCompleting) completed = true;
-    const completeTask = {
-      id,
-      completed,
-      ...(description && { description }),
-    };
 
-    await updateTask(completeTask);
-    await getMyTasks();
-  };
-  const handleDeleteTask = async (task) => {
-    const { id } = task;
-    console.log(id);
-    await deleteTask(id);
-    await getMyTasks();
-  };
+  const handleTaskComplete = useCallback(
+    async (task, isCompleting) => {
+      console.log(task);
+      let { id, description, completed } = task;
+      if (isCompleting) completed = true;
+      const completeTask = {
+        id,
+        completed,
+        ...(description && { description }),
+      };
+
+      await updateTask(completeTask);
+      await getMyTasks();
+    },
+    [tasks]
+  );
+  const handleDeleteTask = useCallback(
+    async (task) => {
+      const { id } = task;
+      console.log(id);
+      await deleteTask(id);
+      await getMyTasks();
+    },
+    [tasks]
+  );
   const setToEditTaskMode = (task) => {
     setToEditTask(task);
     setIsModalOpen(true);

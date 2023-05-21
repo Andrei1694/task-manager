@@ -45,9 +45,6 @@ export const userApi = createApi({
         url: "/users/me/avatar",
         method: "POST",
         body: formData,
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
       }),
     }),
     getMyProfile: builder.query({

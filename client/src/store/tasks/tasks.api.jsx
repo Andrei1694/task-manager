@@ -20,24 +20,23 @@ export const tasksApi = createApi({
       }),
     }),
     updateTask: builder.mutation({
-      query: ({ _id, ...body }) => {
-        console.log(_id);
-        console.log(body);
+      query: ({ id, ...body }) => {
         return {
-          url: `/${_id}`,
+          url: `/${id}`,
           method: "PATCH",
           body,
         };
       },
     }),
     deleteTask: builder.mutation({
-      query: (_id) => ({
-        url: `/${_id}`,
+      query: (id) => ({
+        url: `/${id}`,
         method: "DELETE",
       }),
     }),
     getMyTasks: builder.query({
       query: () => "",
+      forceRefetch: true,
     }),
   }),
 });

@@ -11,24 +11,24 @@ import {
 } from "../../store/tasks/tasks.api.jsx";
 import { useSelector } from "react-redux";
 import { selectUserFromState } from "../../store/user/user.slice.jsx";
+import { selectTasksSelector } from "../../store/tasks/tasks.selector.jsx";
 
 const TaskPage = () => {
-  // const [tasks, setTasks] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
-  const [getMyTasks, { data: tasks, isLoading }] = useLazyGetMyTasksQuery();
-  // console.log(refetch);
+  const [getMyTasks, { isLoading }] = useLazyGetMyTasksQuery();
+
   const [isEditMode, setIsEditMode] = useState(false);
   const { user } = useSelector(selectUserFromState);
   const [updateTask] = useUpdateTaskMutation();
   const [deleteTask] = useDeleteTaskMutation();
   const [toEditTask, setToEditTask] = useState(null);
+  const tasks = useSelector(selectTasksSelector);
   useEffect(() => {
     user && getMyTasks();
   }, [user]);
 
   const onSubmit = (e) => {
-    console.log(e);
     if (isEditMode) {
       return;
     }
@@ -36,19 +36,22 @@ const TaskPage = () => {
     getMyTasks();
   };
   const handleTaskComplete = (task, isCompleting) => {
-    let { _id, description, completed } = task;
+    console.log(task);
+    let { id, description, completed } = task;
     if (isCompleting) completed = true;
     const completeTask = {
-      _id,
+      id,
       completed,
       ...(description && { description }),
     };
+
     updateTask(completeTask);
-    getMyTasks();
+    getMyTasks(null, false);
   };
   const handleDeleteTask = (task) => {
-    const { _id } = task;
-    deleteTask(_id);
+    const { id } = task;
+    console.log(id);
+    deleteTask(id);
     getMyTasks();
   };
   const setToEditTaskMode = (task) => {

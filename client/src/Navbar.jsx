@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 import { selectUserFromState } from "./store/user/user.selector";
-function Navbar() {
+
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const userSelector = useSelector(selectUserFromState);
 
@@ -125,5 +126,3 @@ function Navbar() {
     </>
   );
 }
-
-export default Navbar;

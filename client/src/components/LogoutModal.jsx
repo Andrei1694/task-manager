@@ -1,16 +1,19 @@
-import axios from "axios";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useCookies } from "react-cookie";
+<<<<<<< HEAD
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../store/user/user.api";
 import { useEffect } from "react";
 import { selectUserFromState } from "../store/user/user.selector";
+=======
+import { useNavigate } from "react-router-dom";
+import { useLogoutMutation } from "../store/user/user.api";
+>>>>>>> fb442058bddccaa49c67322149d8f4da0e5ce3b1
 
 export default function LogoutModal() {
   const [isOpen, setIsOpen] = useState(true);
   const [cookies, setCookie, removeCookie] = useCookies(["login-cookie"]);
-  const userSelector = useSelector(selectUserFromState);
   const [logout] = useLogoutMutation();
   const navigate = useNavigate();
   const handleOpen = () => setIsOpen(true);
@@ -21,9 +24,7 @@ export default function LogoutModal() {
     navigate("/");
     handleClose();
   };
-  const location = useLocation();
-  console.log(location);
-  useEffect(() => {}, []);
+
   return (
     <>
       {isOpen && (

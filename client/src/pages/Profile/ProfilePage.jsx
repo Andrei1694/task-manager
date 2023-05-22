@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import UserDetailsForm from "./user-details.form.jsx";
+import UserDetailsForm from "./UserDetailsForm.jsx";
 import { useSelector } from "react-redux";
 import { useUpdateUserMutation } from "../../store/user/user.api.jsx";
 import ProfileImage from "./ProfileImage.jsx";
@@ -20,7 +20,6 @@ export default function ProfilePage() {
   };
 
   const handleSaveClick = (values) => {
-    // handle save logic here
     setEditing(false);
   };
 

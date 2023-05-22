@@ -2,9 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 
 const selectUser = (state) => state.user;
 
-const selectUserState = createSelector(selectUser, (user) => {
-  return user;
-});
+const selectUserState = createSelector(selectUser, (userState) => userState);
 
 export const selectUserFromState = createSelector(
   selectUserState,

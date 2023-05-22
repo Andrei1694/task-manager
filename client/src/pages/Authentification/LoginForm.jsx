@@ -81,10 +81,11 @@ function LoginForm({ toggleForm }) {
               >
                 {isSubmitting ? "Submitting..." : "Login"}
               </button>
+
               <button
                 type="button"
                 className="text-gray-700 text-sm focus:outline-none hover:text-gray-900"
-                onClick={toggleForm}
+                onClick={() => navigate("?mode=register")}
               >
                 Register
               </button>

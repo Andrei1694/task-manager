@@ -135,7 +135,7 @@ const RegisterForm = () => {
                 Register
               </button>
               <Link
-                to="/login"
+                to="/?mode=login"
                 className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
               >
                 Already have an account?

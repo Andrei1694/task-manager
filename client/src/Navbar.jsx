@@ -2,10 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import {
-  selectTokenFromState,
-  selectUserFromState,
-} from "./store/user/user.selector";
+import { selectTokenFromState } from "./store/user/user.selector";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -118,7 +115,7 @@ export default function Navbar() {
             </Link>
 
             <Link
-              to={token ? "/logout" : "/login"}
+              to={token ? "/logout" : "/login?mode=login"}
               className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
             >
               {token ? "Logout" : "Login"}

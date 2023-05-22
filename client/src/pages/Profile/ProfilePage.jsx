@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from "react";
-import UserDetailsForm from "./user-details.form.jsx";
+import React, { useState } from "react";
+import UserDetailsForm from "./UserDetailsForm.jsx";
 import { useSelector } from "react-redux";
-import { selectUserFromState } from "../../store/user/user.slice.jsx";
-import {
-  useLazyGetMyProfileQuery,
-  useUpdateUserMutation,
-} from "../../store/user/user.api.jsx";
+import { useUpdateUserMutation } from "../../store/user/user.api.jsx";
 import ProfileImage from "./ProfileImage.jsx";
+import { selectUserFromState } from "../../store/user/user.selector.jsx";
 
-const Profile = () => {
+export default function ProfilePage() {
   const [editing, setEditing] = useState(false);
   const { user } = useSelector(selectUserFromState);
   const { name, email, age } = user ?? {};
   const [updateUser] = useUpdateUserMutation();
-
-  // const [getUserQuery, { data }] = useLazyGetMyProfileQuery();
 
   const handleEditClick = () => {
     setEditing(true);
@@ -70,6 +65,4 @@ const Profile = () => {
       )}
     </div>
   );
-};
-
-export default Profile;
+}

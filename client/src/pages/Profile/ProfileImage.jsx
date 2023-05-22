@@ -4,7 +4,7 @@ import {
   useUploadAvatarMutation,
 } from "../../store/user/user.api";
 
-function ProfileImage({ user }) {
+export default function ProfileImage({ user }) {
   const [uploadAvatar, { isLoading }] = useUploadAvatarMutation();
   const [url, setUrl] = useState("");
   const [imgKey, setImgKey] = useState(0);
@@ -62,5 +62,3 @@ function ProfileImage({ user }) {
     </div>
   );
 }
-
-export default ProfileImage;

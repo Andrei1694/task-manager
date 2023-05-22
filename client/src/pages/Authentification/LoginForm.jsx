@@ -2,15 +2,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useLoginUserMutation } from "../../store/user/user.api";
 import { useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
-import { useSelector } from "react-redux";
-import { selectUserFromState } from "../../store/user/user.slice";
-// import { useLoginUserMutation } from "../../store/user/user.slice";
 
 function LoginForm({ toggleForm }) {
   const [loginUser] = useLoginUserMutation();
   const navigate = useNavigate();
   const [cookie, setCookie] = useCookies();
-  const userSelector = useSelector(selectUserFromState);
+
   return (
     <div className="w-full max-w-xs">
       <h2 className="text-2xl font-bold mb-4">Login</h2>

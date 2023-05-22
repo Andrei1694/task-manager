@@ -16,7 +16,6 @@ import { useCallback } from "react";
 import { selectUserFromState } from "../../store/user/user.selector.jsx";
 
 export default function TaskPage() {
-  console.log("rerender parent");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
   const [getMyTasks, { isLoading }] = useLazyGetMyTasksQuery();

@@ -20,7 +20,6 @@ export default function ProfilePage() {
   };
 
   const handleSaveClick = (values) => {
-    // handle save logic here
     setEditing(false);
   };
 

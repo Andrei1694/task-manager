@@ -1,13 +1,12 @@
 import { useEffect } from "react";
 import { useState } from "react";
 
-const TaskList = ({
+export default function TaskList({
   tasks,
   handleTaskComplete,
   handleDeleteTask,
   setToEditTask,
-}) => {
-  console.log("render/rerender");
+}) {
   const [onGoingTasks, setOnGoingTasks] = useState({});
   const [completedTasks, setCompletedTasks] = useState({});
 
@@ -94,6 +93,4 @@ const TaskList = ({
       </div>
     </div>
   );
-};
-
-export default TaskList;
+}

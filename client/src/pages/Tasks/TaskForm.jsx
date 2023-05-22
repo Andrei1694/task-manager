@@ -19,24 +19,6 @@ const TaskForm = ({ onSubmit, initialValues }) => {
       >
         {({ isSubmitting, isValid }) => (
           <Form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            {/* <div className="mb-4">
-              <label
-                className="block text-gray-700 font-bold mb-2"
-                htmlFor="title"
-              >
-                Title
-              </label>
-              <Field
-                type="text"
-                id="title"
-                name="title"
-                placeholder="Enter task title"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-              <ErrorMessage name="title">
-                {(msg) => <p className="text-red-500 text-xs italic">{msg}</p>}
-              </ErrorMessage>
-            </div> */}
             <div className="mb-4">
               <label
                 className="block text-gray-700 font-bold mb-2"
@@ -56,23 +38,7 @@ const TaskForm = ({ onSubmit, initialValues }) => {
                 {(msg) => <p className="text-red-500 text-xs italic">{msg}</p>}
               </ErrorMessage>
             </div>
-            {/* <div className="mb-4">
-              <label
-                className="block text-gray-700 font-bold mb-2"
-                htmlFor="dueDate"
-              >
-                Due Date
-              </label>
-              <Field
-                type="date"
-                id="dueDate"
-                name="dueDate"
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              />
-              <ErrorMessage name="dueDate">
-                {(msg) => <p className="text-red-500 text-xs italic">{msg}</p>}
-              </ErrorMessage>
-            </div> */}
+
             <div className="flex items-center justify-between">
               <button
                 type="submit"

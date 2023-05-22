@@ -9,14 +9,14 @@ import {
   useLazyGetMyTasksQuery,
   useUpdateTaskMutation,
 } from "../../store/tasks/tasks.api.jsx";
-import { useSelector } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 
 import { selectTasksSelector } from "../../store/tasks/tasks.selector.jsx";
 import { useCallback } from "react";
 import { selectUserFromState } from "../../store/user/user.selector.jsx";
 
 export default function TaskPage() {
-  console.log("rerender parent");
+  // console.log("rerender parent");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [createTask] = useCreateTaskMutation();
   const [getMyTasks, { isLoading }] = useLazyGetMyTasksQuery();
@@ -25,7 +25,8 @@ export default function TaskPage() {
   const [deleteTask] = useDeleteTaskMutation();
   const [toEditTask, setToEditTask] = useState(null);
   const tasks = useSelector(selectTasksSelector);
-  const { user } = useSelector(selectUserFromState);
+  const user = useSelector(selectUserFromState);
+  console.log(user);
   useEffect(() => {
     user && getMyTasks();
   }, [user]);

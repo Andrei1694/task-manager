@@ -2,11 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 import { useSelector } from "react-redux";
-import { selectUserFromState } from "./store/user/user.selector";
+import {
+  selectTokenFromState,
+  selectUserFromState,
+} from "./store/user/user.selector";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const userSelector = useSelector(selectUserFromState);
+  const token = useSelector(selectTokenFromState);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -40,10 +43,10 @@ export default function Navbar() {
                   Profile
                 </Link>
                 <Link
-                  to={userSelector.token ? "/logout" : "/login"}
+                  to={token ? "/logout" : "/login"}
                   className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                 >
-                  {userSelector.token ? "Logout" : "Login"}
+                  {token ? "Logout" : "Login"}
                 </Link>
               </div>
             </div>
@@ -115,10 +118,10 @@ export default function Navbar() {
             </Link>
 
             <Link
-              to={userSelector.token ? "/logout" : "/login"}
+              to={token ? "/logout" : "/login"}
               className="block mt-4 lg:inline-block lg:mt-0 text-blue-200 hover:text-white mr-4"
             >
-              {userSelector.token ? "Logout" : "Login"}
+              {token ? "Logout" : "Login"}
             </Link>
           </div>
         </div>

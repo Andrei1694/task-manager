@@ -18,7 +18,6 @@ const selectTasks = (state) => state.tasks;
 export const selectTasksSelector = createDraftSafeSelector(
   selectTasks,
   ({ tasks }) => {
-    console.log(tasks);
     const tasksMap = tasks.reduce((acc, task) => {
       const { _id, completed, description } = task;
       acc[_id] = {

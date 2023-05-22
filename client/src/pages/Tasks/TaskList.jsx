@@ -7,7 +7,6 @@ const TaskList = ({
   handleDeleteTask,
   setToEditTask,
 }) => {
-  console.log("render/rerender");
   const [onGoingTasks, setOnGoingTasks] = useState({});
   const [completedTasks, setCompletedTasks] = useState({});
 

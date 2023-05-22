@@ -3,9 +3,9 @@ import { useContext, useState } from "react";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { selectUserFromState } from "../store/user/user.slice";
 import { useLogoutMutation } from "../store/user/user.api";
 import { useEffect } from "react";
+import { selectUserFromState } from "../store/user/user.selector";
 
 export default function LogoutModal() {
   const [isOpen, setIsOpen] = useState(true);
